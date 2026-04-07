@@ -1,0 +1,325 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		551FDE173313EFFF36655A85 /* ReminderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247F61D32A66822CFC89F049 /* ReminderManager.swift */; };
+		5680CAFA040D5AE872892BEA /* TrackingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6629B7E2430EFF0F2CAA90BE /* TrackingViewModel.swift */; };
+		5FDDAF74A7C13371BDD828AE /* MonitaskMateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D923AF0440DE2DE25D0F75A1 /* MonitaskMateApp.swift */; };
+		78887B813613A1B8C29C4A2A /* MenuBarIconFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689BFB7AEAA76F278F54A3AC /* MenuBarIconFactory.swift */; };
+		943A11110FE76F9678253F8E /* MonitaskModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2801BDC18CAD6F073619B9D9 /* MonitaskModels.swift */; };
+		DC950D1FF5CB2BC6B813193E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAC51AD5E08A587DE2EBE83 /* ContentView.swift */; };
+		FD2E73EBEDFBBF45CC63BBFD /* MonitaskReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FC3236BA03900420C62B0B /* MonitaskReader.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		247F61D32A66822CFC89F049 /* ReminderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderManager.swift; sourceTree = "<group>"; };
+		2801BDC18CAD6F073619B9D9 /* MonitaskModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitaskModels.swift; sourceTree = "<group>"; };
+		6629B7E2430EFF0F2CAA90BE /* TrackingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingViewModel.swift; sourceTree = "<group>"; };
+		689BFB7AEAA76F278F54A3AC /* MenuBarIconFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarIconFactory.swift; sourceTree = "<group>"; };
+		91FC3236BA03900420C62B0B /* MonitaskReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitaskReader.swift; sourceTree = "<group>"; };
+		A4CAC2263FCD0AD2D7E38DA3 /* MonitaskMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonitaskMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D923AF0440DE2DE25D0F75A1 /* MonitaskMateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitaskMateApp.swift; sourceTree = "<group>"; };
+		EBAC51AD5E08A587DE2EBE83 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		0435A62CA47B87044CAA0F3F /* MonitaskMate */ = {
+			isa = PBXGroup;
+			children = (
+				EBAC51AD5E08A587DE2EBE83 /* ContentView.swift */,
+				689BFB7AEAA76F278F54A3AC /* MenuBarIconFactory.swift */,
+				D923AF0440DE2DE25D0F75A1 /* MonitaskMateApp.swift */,
+				2801BDC18CAD6F073619B9D9 /* MonitaskModels.swift */,
+				91FC3236BA03900420C62B0B /* MonitaskReader.swift */,
+				247F61D32A66822CFC89F049 /* ReminderManager.swift */,
+				6629B7E2430EFF0F2CAA90BE /* TrackingViewModel.swift */,
+			);
+			name = MonitaskMate;
+			path = Sources/MonitaskMate;
+			sourceTree = "<group>";
+		};
+		16B0F45E43997AB9CF5C5550 = {
+			isa = PBXGroup;
+			children = (
+				0435A62CA47B87044CAA0F3F /* MonitaskMate */,
+				EFFE080DBAE5F6AE8CF27986 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EFFE080DBAE5F6AE8CF27986 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A4CAC2263FCD0AD2D7E38DA3 /* MonitaskMate.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4525D205643506262065ED06 /* MonitaskMate */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 898BB39783E91FA960580A6C /* Build configuration list for PBXNativeTarget "MonitaskMate" */;
+			buildPhases = (
+				801534D76B87921F090327C3 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MonitaskMate;
+			packageProductDependencies = (
+			);
+			productName = MonitaskMate;
+			productReference = A4CAC2263FCD0AD2D7E38DA3 /* MonitaskMate.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		19D9EA6FA0C9AFA1B741A545 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					4525D205643506262065ED06 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 2A37236E822C31B629BC0EB8 /* Build configuration list for PBXProject "MonitaskMate" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 16B0F45E43997AB9CF5C5550;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = EFFE080DBAE5F6AE8CF27986 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4525D205643506262065ED06 /* MonitaskMate */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		801534D76B87921F090327C3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC950D1FF5CB2BC6B813193E /* ContentView.swift in Sources */,
+				78887B813613A1B8C29C4A2A /* MenuBarIconFactory.swift in Sources */,
+				5FDDAF74A7C13371BDD828AE /* MonitaskMateApp.swift in Sources */,
+				943A11110FE76F9678253F8E /* MonitaskModels.swift in Sources */,
+				FD2E73EBEDFBBF45CC63BBFD /* MonitaskReader.swift in Sources */,
+				551FDE173313EFFF36655A85 /* ReminderManager.swift in Sources */,
+				5680CAFA040D5AE872892BEA /* TrackingViewModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0C7B7BF312DD6A7FD5A0A521 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = MonitaskMate;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kevinwong.MonitaskMate;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+			};
+			name = Debug;
+		};
+		1485B15C84EDE0B176FA27D2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = MonitaskMate;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		1F226BE071AAAD66CC87A69D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = MonitaskMate;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A82CAFE4C9F6B24470F83179 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = MonitaskMate;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kevinwong.MonitaskMate;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2A37236E822C31B629BC0EB8 /* Build configuration list for PBXProject "MonitaskMate" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F226BE071AAAD66CC87A69D /* Debug */,
+				1485B15C84EDE0B176FA27D2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		898BB39783E91FA960580A6C /* Build configuration list for PBXNativeTarget "MonitaskMate" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0C7B7BF312DD6A7FD5A0A521 /* Debug */,
+				A82CAFE4C9F6B24470F83179 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 19D9EA6FA0C9AFA1B741A545 /* Project object */;
+}

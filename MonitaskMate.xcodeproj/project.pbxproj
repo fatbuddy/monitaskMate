@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		462A0EF8FF7DA0C083C2E13F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 158E9ED46E95108F6D99FE30 /* Assets.xcassets */; };
 		551FDE173313EFFF36655A85 /* ReminderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247F61D32A66822CFC89F049 /* ReminderManager.swift */; };
 		5680CAFA040D5AE872892BEA /* TrackingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6629B7E2430EFF0F2CAA90BE /* TrackingViewModel.swift */; };
 		5FDDAF74A7C13371BDD828AE /* MonitaskMateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D923AF0440DE2DE25D0F75A1 /* MonitaskMateApp.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		158E9ED46E95108F6D99FE30 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		247F61D32A66822CFC89F049 /* ReminderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderManager.swift; sourceTree = "<group>"; };
 		2801BDC18CAD6F073619B9D9 /* MonitaskModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitaskModels.swift; sourceTree = "<group>"; };
 		6629B7E2430EFF0F2CAA90BE /* TrackingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingViewModel.swift; sourceTree = "<group>"; };
@@ -31,6 +33,7 @@
 		0435A62CA47B87044CAA0F3F /* MonitaskMate */ = {
 			isa = PBXGroup;
 			children = (
+				158E9ED46E95108F6D99FE30 /* Assets.xcassets */,
 				EBAC51AD5E08A587DE2EBE83 /* ContentView.swift */,
 				689BFB7AEAA76F278F54A3AC /* MenuBarIconFactory.swift */,
 				D923AF0440DE2DE25D0F75A1 /* MonitaskMateApp.swift */,
@@ -67,6 +70,7 @@
 			buildConfigurationList = 898BB39783E91FA960580A6C /* Build configuration list for PBXNativeTarget "MonitaskMate" */;
 			buildPhases = (
 				801534D76B87921F090327C3 /* Sources */,
+				4AE75C40202D3A42CC9F1C2B /* Resources */,
 			);
 			buildRules = (
 			);
@@ -113,6 +117,17 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		4AE75C40202D3A42CC9F1C2B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				462A0EF8FF7DA0C083C2E13F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		801534D76B87921F090327C3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -143,6 +158,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = MonitaskMate;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -286,6 +302,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = MonitaskMate;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

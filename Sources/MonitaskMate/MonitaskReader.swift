@@ -62,8 +62,7 @@ struct MonitaskReader {
 
         let logSaysTracking: Bool
         if let latestLogEvent,
-           latestLogEvent.type == .start,
-           now.timeIntervalSince(latestLogEvent.timestamp) <= 180 {
+           latestLogEvent.type == .start {
             logSaysTracking = true
         } else {
             logSaysTracking = false
@@ -194,10 +193,10 @@ struct MonitaskReader {
     }
 
     private func parseLogTimestamp(_ line: String) -> Date? {
-        guard line.count >= 29 else {
+        guard line.count >= 30 else {
             return nil
         }
-        let rawPrefix = String(line.prefix(29))
+        let rawPrefix = String(line.prefix(30))
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS Z"

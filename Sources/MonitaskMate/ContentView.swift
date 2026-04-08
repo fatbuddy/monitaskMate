@@ -36,7 +36,7 @@ struct ContentView: View {
             Spacer()
 
             HStack {
-                Text("Updates every second")
+                Text("Updates every \(viewModel.refreshIntervalText)")
                     .foregroundStyle(.secondary)
                 Text("Last update: \(viewModel.lastUpdatedText)")
                     .foregroundStyle(.secondary)
@@ -75,6 +75,13 @@ struct MenuPanelView: View {
             Text("Total: \(viewModel.format(seconds: viewModel.snapshot.totalSeconds))")
             Text("Updated: \(viewModel.lastUpdatedText)")
                 .foregroundStyle(.secondary)
+
+            Picker("Sync Interval", selection: $viewModel.refreshInterval) {
+                ForEach(TrackingViewModel.RefreshInterval.allCases) { interval in
+                    Text(interval.label).tag(interval)
+                }
+            }
+            .pickerStyle(.menu)
 
             Divider()
             Toggle("Smart Reminder", isOn: Binding(

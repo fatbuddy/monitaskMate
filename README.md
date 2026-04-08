@@ -96,3 +96,5 @@ macOS will ask for notification permission when enabling reminders.
 ## GitHub
 
 Repository: `https://github.com/ckwcfm/monitaskMate`
+
+Release process checklist: `RELEASE.md`

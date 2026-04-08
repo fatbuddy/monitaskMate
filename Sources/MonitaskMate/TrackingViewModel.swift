@@ -4,6 +4,41 @@ import AppKit
 
 @MainActor
 final class TrackingViewModel: ObservableObject {
+    enum RefreshInterval: Int, CaseIterable, Identifiable {
+        case oneSecond = 1
+        case tenSeconds = 10
+        case thirtySeconds = 30
+        case oneMinute = 60
+
+        var id: Int { rawValue }
+
+        var label: String {
+            switch self {
+            case .oneSecond:
+                return "1 second"
+            case .tenSeconds:
+                return "10 seconds"
+            case .thirtySeconds:
+                return "30 seconds"
+            case .oneMinute:
+                return "1 minute"
+            }
+        }
+
+        var timerTolerance: TimeInterval {
+            switch self {
+            case .oneSecond:
+                return 0.2
+            case .tenSeconds:
+                return 1
+            case .thirtySeconds:
+                return 2
+            case .oneMinute:
+                return 4
+            }
+        }
+    }
+
     @Published private(set) var snapshot = TrackingSnapshot(
         isTracking: false,
         totalSeconds: 0,
@@ -12,20 +47,35 @@ final class TrackingViewModel: ObservableObject {
         lastUpdated: Date()
     )
     @Published private(set) var loadError: String?
+    @Published var refreshInterval: RefreshInterval {
+        didSet {
+            UserDefaults.standard.set(refreshInterval.rawValue, forKey: Self.refreshIntervalKey)
+            configureTimer()
+        }
+    }
 
     private let reader = MonitaskReader()
     private let reminderManager: ReminderManager
     private var timer: Timer?
 
+    private static let refreshIntervalKey = "tracking.refreshIntervalSeconds"
+
     init(reminderManager: ReminderManager) {
         self.reminderManager = reminderManager
+        let stored = UserDefaults.standard.integer(forKey: Self.refreshIntervalKey)
+        refreshInterval = RefreshInterval(rawValue: stored) ?? .oneSecond
         refresh()
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+        configureTimer()
+    }
+
+    private func configureTimer() {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: TimeInterval(refreshInterval.rawValue), repeats: true) { [weak self] _ in
             Task { @MainActor in
                 self?.refresh()
             }
         }
-        timer?.tolerance = 0.2
+        timer?.tolerance = refreshInterval.timerTolerance
     }
 
     var menuBarTitle: String {
@@ -50,6 +100,10 @@ final class TrackingViewModel: ObservableObject {
 
     var lastUpdatedText: String {
         Self.timeFormatter.string(from: snapshot.lastUpdated)
+    }
+
+    var refreshIntervalText: String {
+        refreshInterval.label
     }
 
     func refresh() {

@@ -6,6 +6,21 @@ import Combine
 final class ReminderManager: NSObject, ObservableObject, UNUserNotificationCenterDelegate {
     @Published private(set) var isEnabled: Bool
     @Published private(set) var snoozeUntil: Date?
+    @Published var gracePeriodMinutes: Int {
+        didSet {
+            UserDefaults.standard.set(gracePeriodMinutes, forKey: gracePeriodMinutesKey)
+        }
+    }
+    @Published var reminderCooldownMinutes: Int {
+        didSet {
+            UserDefaults.standard.set(reminderCooldownMinutes, forKey: reminderCooldownMinutesKey)
+        }
+    }
+    @Published var activityIdleThresholdSeconds: Int {
+        didSet {
+            UserDefaults.standard.set(activityIdleThresholdSeconds, forKey: activityIdleThresholdSecondsKey)
+        }
+    }
 
     private let center = UNUserNotificationCenter.current()
     private var timer: Timer?
@@ -13,12 +28,11 @@ final class ReminderManager: NSObject, ObservableObject, UNUserNotificationCente
     private var activeButNotTrackingSince: Date?
     private var lastReminderDate: Date?
 
-    private let gracePeriod: TimeInterval = 10 * 60
-    private let reminderCooldown: TimeInterval = 10 * 60
-    private let activityIdleThreshold: TimeInterval = 90
-
     private let enabledKey = "reminder.enabled"
     private let snoozeUntilKey = "reminder.snoozeUntil"
+    private let gracePeriodMinutesKey = "reminder.gracePeriodMinutes"
+    private let reminderCooldownMinutesKey = "reminder.cooldownMinutes"
+    private let activityIdleThresholdSecondsKey = "reminder.activityIdleThresholdSeconds"
 
     private let categoryIdentifier = "monitask.reminder"
     private let actionSnooze15 = "snooze.15"
@@ -30,6 +44,12 @@ final class ReminderManager: NSObject, ObservableObject, UNUserNotificationCente
         let defaults = UserDefaults.standard
         isEnabled = defaults.bool(forKey: enabledKey)
         snoozeUntil = defaults.object(forKey: snoozeUntilKey) as? Date
+        let storedGracePeriodMinutes = defaults.integer(forKey: gracePeriodMinutesKey)
+        gracePeriodMinutes = storedGracePeriodMinutes == 0 ? 10 : storedGracePeriodMinutes
+        let storedCooldownMinutes = defaults.integer(forKey: reminderCooldownMinutesKey)
+        reminderCooldownMinutes = storedCooldownMinutes == 0 ? 10 : storedCooldownMinutes
+        let storedIdleThresholdSeconds = defaults.integer(forKey: activityIdleThresholdSecondsKey)
+        activityIdleThresholdSeconds = storedIdleThresholdSeconds == 0 ? 90 : storedIdleThresholdSeconds
         super.init()
 
         configureNotificationSupport()
@@ -59,6 +79,17 @@ final class ReminderManager: NSObject, ObservableObject, UNUserNotificationCente
             UserDefaults.standard.set(false, forKey: enabledKey)
             activeButNotTrackingSince = nil
         }
+    }
+
+    func resetToDefaults() {
+        setEnabled(false)
+        snoozeUntil = nil
+        UserDefaults.standard.removeObject(forKey: snoozeUntilKey)
+        gracePeriodMinutes = 10
+        reminderCooldownMinutes = 10
+        activityIdleThresholdSeconds = 90
+        lastReminderDate = nil
+        activeButNotTrackingSince = nil
     }
 
     func snooze(minutes: Int) {
@@ -106,7 +137,7 @@ final class ReminderManager: NSObject, ObservableObject, UNUserNotificationCente
         let mouseIdle = CGEventSource.secondsSinceLastEventType(.combinedSessionState, eventType: .mouseMoved)
         let clickIdle = CGEventSource.secondsSinceLastEventType(.combinedSessionState, eventType: .leftMouseDown)
         let idleSeconds = min(keyboardIdle, mouseIdle, clickIdle)
-        guard idleSeconds < activityIdleThreshold else {
+        guard idleSeconds < TimeInterval(activityIdleThresholdSeconds) else {
             activeButNotTrackingSince = nil
             return
         }
@@ -120,9 +151,9 @@ final class ReminderManager: NSObject, ObservableObject, UNUserNotificationCente
             return
         }
 
-        if now.timeIntervalSince(activeButNotTrackingSince) >= gracePeriod {
+        if now.timeIntervalSince(activeButNotTrackingSince) >= TimeInterval(gracePeriodMinutes * 60) {
             if let lastReminderDate,
-               now.timeIntervalSince(lastReminderDate) < reminderCooldown {
+               now.timeIntervalSince(lastReminderDate) < TimeInterval(reminderCooldownMinutes * 60) {
                 return
             }
             sendReminderNotification()

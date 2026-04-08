@@ -122,6 +122,25 @@ final class TrackingViewModel: ObservableObject {
         return String(format: "%dh %02dm", hours, minutes)
     }
 
+    func resetToDefaults() {
+        refreshInterval = .oneSecond
+        refresh()
+    }
+
+    func diagnosticsText(reminderManager: ReminderManager) -> String {
+        [
+            "Time: \(menuBarTitle)",
+            "Status: \(statusText)",
+            "Project: \(snapshot.selectedProjectName)",
+            "Last Updated: \(lastUpdatedText)",
+            "Sync Interval: \(refreshInterval.label)",
+            "Reminder Enabled: \(reminderManager.isEnabled ? "yes" : "no")",
+            "Reminder Grace: \(reminderManager.gracePeriodMinutes)m",
+            "Reminder Cooldown: \(reminderManager.reminderCooldownMinutes)m",
+            "Active Threshold: \(reminderManager.activityIdleThresholdSeconds)s"
+        ].joined(separator: "\n")
+    }
+
     private static let timeFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.timeStyle = .medium

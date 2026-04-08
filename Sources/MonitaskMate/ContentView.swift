@@ -2,51 +2,101 @@ import SwiftUI
 import AppKit
 
 struct ContentView: View {
-    @ObservedObject var viewModel: TrackingViewModel
-    @ObservedObject var reminderManager: ReminderManager
+    private enum SectionItem: String, CaseIterable, Identifiable {
+        case overview = "Overview"
+        case settings = "Settings"
 
-    var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            HStack {
-                Text(viewModel.statusDot)
-                    .font(.largeTitle)
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(viewModel.statusText)
-                        .font(.title3)
-                        .fontWeight(.semibold)
-                    Text("Project: \(viewModel.snapshot.selectedProjectName)")
-                        .foregroundStyle(.secondary)
-                }
-            }
+        var id: String { rawValue }
 
-            VStack(alignment: .leading, spacing: 8) {
-                metric(title: "Total", value: viewModel.format(seconds: viewModel.snapshot.totalSeconds))
-                metric(title: "Current Session", value: viewModel.format(seconds: viewModel.snapshot.activeSeconds))
-                metric(title: "Reminder", value: reminderManager.isEnabled ? "On" : "Off")
-                if let snoozeText = reminderManager.snoozeText {
-                    metric(title: "Snooze", value: snoozeText)
-                }
-            }
-
-            if let loadError = viewModel.loadError {
-                Text(loadError)
-                    .foregroundStyle(.red)
-            }
-
-            Spacer()
-
-            HStack {
-                Text("Updates every \(viewModel.refreshIntervalText)")
-                    .foregroundStyle(.secondary)
-                Text("Last update: \(viewModel.lastUpdatedText)")
-                    .foregroundStyle(.secondary)
-                Spacer()
-                Button("Refresh") {
-                    viewModel.refresh()
-                }
+        var icon: String {
+            switch self {
+            case .overview:
+                return "clock"
+            case .settings:
+                return "gearshape"
             }
         }
-        .padding(20)
+    }
+
+    @ObservedObject var viewModel: TrackingViewModel
+    @ObservedObject var reminderManager: ReminderManager
+    @ObservedObject var launchAtLoginManager: LaunchAtLoginManager
+    @State private var selectedSection: SectionItem? = .overview
+
+    var body: some View {
+        NavigationSplitView {
+            List(SectionItem.allCases, selection: $selectedSection) { item in
+                Label(item.rawValue, systemImage: item.icon)
+                    .tag(item)
+            }
+            .listStyle(.sidebar)
+            .padding(.top, 8)
+            .frame(maxHeight: .infinity)
+            .navigationSplitViewColumnWidth(min: 140, ideal: 170)
+        } detail: {
+            Group {
+                switch selectedSection ?? .overview {
+                case .overview:
+                    overviewTab
+                case .settings:
+                    SettingsView(
+                        viewModel: viewModel,
+                        reminderManager: reminderManager,
+                        launchAtLoginManager: launchAtLoginManager
+                    )
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .padding(.top, 8)
+        }
+        .navigationSplitViewStyle(.balanced)
+    }
+
+    private var overviewTab: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                HStack {
+                    Text(viewModel.statusDot)
+                        .font(.largeTitle)
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(viewModel.statusText)
+                            .font(.title3)
+                            .fontWeight(.semibold)
+                        Text("Project: \(viewModel.snapshot.selectedProjectName)")
+                            .foregroundStyle(.secondary)
+                    }
+                }
+
+                VStack(alignment: .leading, spacing: 8) {
+                    metric(title: "Total", value: viewModel.format(seconds: viewModel.snapshot.totalSeconds))
+                    metric(title: "Current Session", value: viewModel.format(seconds: viewModel.snapshot.activeSeconds))
+                    metric(title: "Reminder", value: reminderManager.isEnabled ? "On" : "Off")
+                    if let snoozeText = reminderManager.snoozeText {
+                        metric(title: "Snooze", value: snoozeText)
+                    }
+                }
+
+                if let loadError = viewModel.loadError {
+                    Text(loadError)
+                        .foregroundStyle(.red)
+                }
+
+                Spacer(minLength: 0)
+
+                HStack {
+                    Text("Updates every \(viewModel.refreshIntervalText)")
+                        .foregroundStyle(.secondary)
+                    Text("Last update: \(viewModel.lastUpdatedText)")
+                        .foregroundStyle(.secondary)
+                    Spacer()
+                    Button("Refresh") {
+                        viewModel.refresh()
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(20)
+        }
     }
 
     @ViewBuilder
@@ -119,7 +169,7 @@ struct MenuPanelView: View {
             Button("Refresh") {
                 viewModel.refresh()
             }
-            Button("Open App") {
+            Button("Preference") {
                 openWindow(id: "main")
                 NSApp.activate(ignoringOtherApps: true)
                 NSApp.windows.first(where: { $0.title == "MonitaskMate" })?.makeKeyAndOrderFront(nil)

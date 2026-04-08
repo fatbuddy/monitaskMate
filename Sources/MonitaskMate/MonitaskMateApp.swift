@@ -4,10 +4,13 @@ import SwiftUI
 struct MonitaskMateApp: App {
     @StateObject private var viewModel: TrackingViewModel
     @StateObject private var reminderManager: ReminderManager
+    @StateObject private var launchAtLoginManager: LaunchAtLoginManager
 
     init() {
         let reminderManager = ReminderManager()
+        let launchAtLoginManager = LaunchAtLoginManager()
         _reminderManager = StateObject(wrappedValue: reminderManager)
+        _launchAtLoginManager = StateObject(wrappedValue: launchAtLoginManager)
         _viewModel = StateObject(wrappedValue: TrackingViewModel(reminderManager: reminderManager))
     }
 
@@ -23,7 +26,11 @@ struct MonitaskMateApp: App {
         }
 
         Window("MonitaskMate", id: "main") {
-            ContentView(viewModel: viewModel, reminderManager: reminderManager)
+            ContentView(
+                viewModel: viewModel,
+                reminderManager: reminderManager,
+                launchAtLoginManager: launchAtLoginManager
+            )
                 .frame(minWidth: 360, minHeight: 240)
         }
     }

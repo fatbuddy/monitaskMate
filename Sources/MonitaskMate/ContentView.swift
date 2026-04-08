@@ -21,6 +21,7 @@ struct ContentView: View {
     @ObservedObject var viewModel: TrackingViewModel
     @ObservedObject var reminderManager: ReminderManager
     @ObservedObject var launchAtLoginManager: LaunchAtLoginManager
+    @ObservedObject var floatingCounterManager: FloatingCounterManager
     @State private var selectedSection: SectionItem? = .overview
 
     var body: some View {
@@ -42,7 +43,8 @@ struct ContentView: View {
                     SettingsView(
                         viewModel: viewModel,
                         reminderManager: reminderManager,
-                        launchAtLoginManager: launchAtLoginManager
+                        launchAtLoginManager: launchAtLoginManager,
+                        floatingCounterManager: floatingCounterManager
                     )
                 }
             }

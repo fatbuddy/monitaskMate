@@ -56,12 +56,14 @@ final class TrackingViewModel: ObservableObject {
 
     private let reader = MonitaskReader()
     private let reminderManager: ReminderManager
+    private let floatingCounterManager: FloatingCounterManager
     private var timer: Timer?
 
     private static let refreshIntervalKey = "tracking.refreshIntervalSeconds"
 
-    init(reminderManager: ReminderManager) {
+    init(reminderManager: ReminderManager, floatingCounterManager: FloatingCounterManager) {
         self.reminderManager = reminderManager
+        self.floatingCounterManager = floatingCounterManager
         let stored = UserDefaults.standard.integer(forKey: Self.refreshIntervalKey)
         refreshInterval = RefreshInterval(rawValue: stored) ?? .oneSecond
         refresh()
@@ -110,6 +112,7 @@ final class TrackingViewModel: ObservableObject {
         do {
             snapshot = try reader.loadSnapshot()
             reminderManager.updateTrackingState(snapshot.isTracking)
+            floatingCounterManager.update(title: menuBarTitle, isTracking: snapshot.isTracking)
             loadError = nil
         } catch {
             loadError = "Unable to read Monitask data."

@@ -5,6 +5,7 @@ struct SettingsView: View {
     @ObservedObject var viewModel: TrackingViewModel
     @ObservedObject var reminderManager: ReminderManager
     @ObservedObject var launchAtLoginManager: LaunchAtLoginManager
+    @ObservedObject var floatingCounterManager: FloatingCounterManager
 
     private let reminderMinuteOptions = [5, 10, 15, 20, 30]
     private let idleThresholdOptions = [30, 60, 90, 120, 180]
@@ -38,6 +39,22 @@ struct SettingsView: View {
                             description: "Starts MonitaskMate automatically when you sign in."
                         )
                     }
+
+                    Toggle(isOn: $floatingCounterManager.isEnabled) {
+                        settingTitleDescription(
+                            title: "Floating Counter",
+                            description: "Shows an always-on-top mini timer window so you can monitor status when the menu bar is hidden behind the notch."
+                        )
+                    }
+
+                    VStack(alignment: .leading, spacing: 6) {
+                        settingTitleDescription(
+                            title: "Floating Counter Opacity",
+                            description: "Adjusts transparency of the floating timer window."
+                        )
+                        Slider(value: $floatingCounterManager.opacity, in: 0.4...1.0, step: 0.05)
+                    }
+                    .disabled(!floatingCounterManager.isEnabled)
 
                     if let errorMessage = launchAtLoginManager.errorMessage {
                         Text(errorMessage)
@@ -110,6 +127,7 @@ struct SettingsView: View {
                         viewModel.resetToDefaults()
                         reminderManager.resetToDefaults()
                         launchAtLoginManager.setEnabled(false)
+                        floatingCounterManager.resetToDefaults()
                     }
                 }
 

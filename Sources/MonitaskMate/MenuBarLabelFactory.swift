@@ -3,14 +3,12 @@ import AppKit
 enum MenuBarLabelFactory {
     static func makeLabel(timeText: String, isTracking: Bool, showSeconds: Bool) -> NSImage {
         let icon = MenuBarIconFactory.makeIcon(isTracking: isTracking)
-        let size = NSSize(width: showSeconds ? 108 : 80, height: 18)
+        let size = NSSize(width: showSeconds ? 100 : 72, height: 18)
         let image = NSImage(size: size)
 
         image.lockFocus()
-        let iconRect = NSRect(x: 0, y: 1, width: 16, height: 16)
-        icon.draw(in: iconRect)
-
         let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .left
         paragraphStyle.lineBreakMode = .byClipping
 
         let attributes: [NSAttributedString.Key: Any] = [
@@ -19,7 +17,28 @@ enum MenuBarLabelFactory {
             .paragraphStyle: paragraphStyle
         ]
 
-        let textRect = NSRect(x: 22, y: 1, width: size.width - 22, height: 16)
+        let template = showSeconds ? "00h\u{2006}00m\u{2006}00s" : "00h\u{2006}00m"
+        let templateSize = NSString(string: template).size(withAttributes: attributes)
+
+        let iconSize = NSSize(width: 16, height: 16)
+        let gap: CGFloat = 6
+        let contentWidth = iconSize.width + gap + templateSize.width
+        let contentOriginX = floor((size.width - contentWidth) / 2)
+
+        let iconRect = NSRect(
+            x: contentOriginX,
+            y: floor((size.height - iconSize.height) / 2),
+            width: iconSize.width,
+            height: iconSize.height
+        )
+        icon.draw(in: iconRect)
+
+        let textRect = NSRect(
+            x: iconRect.maxX + gap,
+            y: floor((size.height - templateSize.height) / 2),
+            width: templateSize.width,
+            height: templateSize.height
+        )
         NSString(string: timeText).draw(in: textRect, withAttributes: attributes)
 
         image.unlockFocus()

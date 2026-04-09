@@ -77,7 +77,11 @@ final class TrackingViewModel: ObservableObject {
         didSet {
             UserDefaults.standard.set(counterDisplayFormat.rawValue, forKey: Self.counterDisplayFormatKey)
             updateMenuBarLabelImage()
-            floatingCounterManager.update(title: menuBarTitle, isTracking: snapshot.isTracking)
+            floatingCounterManager.update(
+                title: floatingCounterTitle,
+                isTracking: snapshot.isTracking,
+                showSeconds: counterDisplayFormat == .hoursMinutesSeconds
+            )
         }
     }
     @Published var refreshInterval: RefreshInterval {
@@ -121,6 +125,10 @@ final class TrackingViewModel: ObservableObject {
         formatForCounter(seconds: snapshot.totalSeconds)
     }
 
+    var floatingCounterTitle: String {
+        formatForFloatingCounter(seconds: snapshot.totalSeconds)
+    }
+
     var statusColor: Color {
         snapshot.isTracking ? .green : .red
     }
@@ -146,7 +154,11 @@ final class TrackingViewModel: ObservableObject {
             snapshot = try reader.loadSnapshot()
             updateMenuBarLabelImage()
             reminderManager.updateTrackingState(snapshot.isTracking)
-            floatingCounterManager.update(title: menuBarTitle, isTracking: snapshot.isTracking)
+            floatingCounterManager.update(
+                title: floatingCounterTitle,
+                isTracking: snapshot.isTracking,
+                showSeconds: counterDisplayFormat == .hoursMinutesSeconds
+            )
             loadError = nil
         } catch {
             loadError = "Unable to read Monitask data."
@@ -173,6 +185,25 @@ final class TrackingViewModel: ObservableObject {
             let m = String(format: "%02d", minutes)
             let s = String(format: "%02d", secondsPart)
             return "\(h)h\u{2006}\(m)m\u{2006}\(s)s"
+        }
+    }
+
+    func formatForFloatingCounter(seconds: Int) -> String {
+        switch counterDisplayFormat {
+        case .hoursMinutes:
+            let hours = seconds / 3600
+            let minutes = (seconds % 3600) / 60
+            let h = String(format: "%02d", min(hours, 99))
+            let m = String(format: "%02d", minutes)
+            return "\(h)h\u{2009}\(m)m"
+        case .hoursMinutesSeconds:
+            let hours = seconds / 3600
+            let minutes = (seconds % 3600) / 60
+            let secondsPart = seconds % 60
+            let h = String(format: "%02d", min(hours, 99))
+            let m = String(format: "%02d", minutes)
+            let s = String(format: "%02d", secondsPart)
+            return "\(h)h\u{2009}\(m)m\u{2009}\(s)s"
         }
     }
 

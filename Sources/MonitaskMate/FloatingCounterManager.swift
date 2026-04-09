@@ -18,7 +18,9 @@ final class FloatingCounterManager: NSObject, ObservableObject, NSWindowDelegate
         didSet {
             let clamped = min(max(opacity, 0.3), 1.0)
             UserDefaults.standard.set(clamped, forKey: Self.opacityKey)
-            state.opacity = clamped
+            DispatchQueue.main.async { [weak self] in
+                self?.state.opacity = clamped
+            }
         }
     }
 
@@ -43,9 +45,24 @@ final class FloatingCounterManager: NSObject, ObservableObject, NSWindowDelegate
         }
     }
 
-    func update(title: String, isTracking: Bool) {
+    func update(title: String, isTracking: Bool, showSeconds: Bool) {
+        DispatchQueue.main.async { [weak self] in
+            self?.applyUpdate(title: title, isTracking: isTracking, showSeconds: showSeconds)
+        }
+    }
+
+    private func applyUpdate(title: String, isTracking: Bool, showSeconds: Bool) {
         state.title = title
         state.isTracking = isTracking
+        state.showSeconds = showSeconds
+
+        if let panel {
+            let nextSize = panelSize(showSeconds: showSeconds)
+            if panel.contentRect(forFrameRect: panel.frame).size != nextSize {
+                panel.setContentSize(nextSize)
+            }
+        }
+
         if isEnabled {
             showPanel()
         }
@@ -68,7 +85,7 @@ final class FloatingCounterManager: NSObject, ObservableObject, NSWindowDelegate
     }
 
     private func makePanel() -> NSPanel {
-        let panelSize = NSSize(width: 176, height: 38)
+        let panelSize = panelSize(showSeconds: state.showSeconds)
         let panel = NSPanel(
             contentRect: NSRect(origin: restoredOrigin(for: panelSize), size: panelSize),
             styleMask: [.nonactivatingPanel, .borderless],
@@ -86,6 +103,10 @@ final class FloatingCounterManager: NSObject, ObservableObject, NSWindowDelegate
 
         panel.contentView = NSHostingView(rootView: FloatingCounterView(state: state))
         return panel
+    }
+
+    private func panelSize(showSeconds: Bool) -> NSSize {
+        NSSize(width: showSeconds ? 162 : 134, height: 38)
     }
 
     func windowDidMove(_ notification: Notification) {
@@ -120,6 +141,7 @@ private final class FloatingCounterState: ObservableObject {
     @Published var title: String = "0h 00m"
     @Published var isTracking: Bool = false
     @Published var opacity: Double = 0.92
+    @Published var showSeconds: Bool = false
     let appIcon: NSImage = {
         let icon = NSWorkspace.shared.icon(forFile: "/Applications/Monitask.app")
         icon.size = NSSize(width: 14, height: 14)
@@ -132,7 +154,7 @@ private struct FloatingCounterView: View {
     @ObservedObject var state: FloatingCounterState
 
     var body: some View {
-        HStack(spacing: 8) {
+        HStack(spacing: 7) {
             Image(nsImage: MenuBarIconFactory.makeIcon(isTracking: state.isTracking))
                 .resizable()
                 .frame(width: 16, height: 16)
@@ -140,7 +162,7 @@ private struct FloatingCounterView: View {
             Text(state.title)
                 .font(.system(size: 13, weight: .regular, design: .monospaced))
                 .monospacedDigit()
-                .frame(minWidth: 84, alignment: .leading)
+                .frame(width: state.showSeconds ? 94 : 68, alignment: .center)
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 6)

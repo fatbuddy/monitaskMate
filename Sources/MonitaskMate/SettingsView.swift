@@ -30,6 +30,20 @@ struct SettingsView: View {
                         }
                     }
 
+                    settingPicker(
+                        title: "Counter Display Format",
+                        description: "Choose whether the menu/floating counter includes seconds.",
+                        selection: $viewModel.counterDisplayFormat
+                    ) {
+                        ForEach(TrackingViewModel.CounterDisplayFormat.allCases) { format in
+                            Text(format.label).tag(format)
+                        }
+                    }
+
+                    Text(viewModel.counterDisplayFormat.description)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+
                     Toggle(isOn: Binding(
                         get: { launchAtLoginManager.isEnabled },
                         set: { launchAtLoginManager.setEnabled($0) }

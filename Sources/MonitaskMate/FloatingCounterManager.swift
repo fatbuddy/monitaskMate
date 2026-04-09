@@ -138,8 +138,9 @@ private struct FloatingCounterView: View {
                 .frame(width: 16, height: 16)
 
             Text(state.title)
-                .font(.system(size: 13, weight: .regular))
+                .font(.system(size: 13, weight: .regular, design: .monospaced))
                 .monospacedDigit()
+                .frame(minWidth: 84, alignment: .leading)
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 6)

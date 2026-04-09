@@ -26,11 +26,7 @@ struct MonitaskMateApp: App {
         MenuBarExtra {
             MenuPanelView(viewModel: viewModel, reminderManager: reminderManager)
         } label: {
-            HStack(spacing: 6) {
-                Image(nsImage: viewModel.menuBarIcon)
-                Text(viewModel.menuBarTitle)
-                    .monospacedDigit()
-            }
+            Image(nsImage: viewModel.menuBarLabelImage)
         }
 
         Window("MonitaskMate", id: "main") {

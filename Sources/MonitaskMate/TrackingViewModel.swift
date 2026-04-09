@@ -187,6 +187,10 @@ final class TrackingViewModel: ObservableObject {
         formatForCounter(seconds: displayedTotalSeconds)
     }
 
+    var floatingCounterTitle: String {
+        formatForFloatingCounter(seconds: displayedTotalSeconds)
+    }
+
     var statusColor: Color {
         snapshot.isTracking ? .green : .red
     }
@@ -281,6 +285,25 @@ final class TrackingViewModel: ObservableObject {
         }
     }
 
+    func formatForFloatingCounter(seconds: Int) -> String {
+        switch counterDisplayFormat {
+        case .hoursMinutes:
+            let hours = seconds / 3600
+            let minutes = (seconds % 3600) / 60
+            let h = String(format: "%02d", min(hours, 99))
+            let m = String(format: "%02d", minutes)
+            return "\(h)h\u{2009}\(m)m"
+        case .hoursMinutesSeconds:
+            let hours = seconds / 3600
+            let minutes = (seconds % 3600) / 60
+            let secondsPart = seconds % 60
+            let h = String(format: "%02d", min(hours, 99))
+            let m = String(format: "%02d", minutes)
+            let s = String(format: "%02d", secondsPart)
+            return "\(h)h\u{2009}\(m)m\u{2009}\(s)s"
+        }
+    }
+
     func resetToDefaults() {
         counterDisplayFormat = .hoursMinutes
         counterUpdateMethod = .authoritative
@@ -311,7 +334,11 @@ final class TrackingViewModel: ObservableObject {
             isTracking: snapshot.isTracking,
             showSeconds: counterDisplayFormat == .hoursMinutesSeconds
         )
-        floatingCounterManager.update(title: menuBarTitle, isTracking: snapshot.isTracking)
+        floatingCounterManager.update(
+            title: floatingCounterTitle,
+            isTracking: snapshot.isTracking,
+            showSeconds: counterDisplayFormat == .hoursMinutesSeconds
+        )
     }
 
     private static let timeFormatter: DateFormatter = {
